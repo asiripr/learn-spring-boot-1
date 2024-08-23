@@ -2,6 +2,8 @@ package com.example.Test02.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.springframework.stereotype.Service;
 
@@ -24,7 +26,7 @@ public class StudentService {
 		
 		Student st3 = new Student();
 		st3.setName("Janani");
-		st3.setId("002");
+		st3.setId("003");
 		st3.setEmail("janani@gmail.com");
 		
 		studentList.add(st1);
@@ -38,5 +40,12 @@ public class StudentService {
 	
 	public Student getSpecificStudent(String id) {
 		return studentList.stream().filter(s->s.getId().equals(id)).findFirst().get();
+	}
+	
+	public List<Student> addStudent(Student student){
+		//studentList.add(student);
+		//return studentList;
+		return Stream.of(student).collect(Collectors.toCollection(()->studentList)); //same operation using lamda expression
+		
 	}
 }
