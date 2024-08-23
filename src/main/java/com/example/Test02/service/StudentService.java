@@ -56,7 +56,11 @@ public class StudentService {
 //				s.setName(student.getName());
 //			}
 //		}
-		studentList.stream().filter(s->s.getId().equals(student.getId())).forEach(s->{s.setName(student.getName());s.setEmail(student.getEmail());});
-		return null;
+		try {
+			studentList.stream().filter(s->s.getId().equals(student.getId())).forEach(s->{s.setName(student.getName());s.setEmail(student.getEmail());});
+			return "Successfully Updated!";
+		} catch (Exception e) {
+			return "An error occured!";
+		}
 	}
 }
