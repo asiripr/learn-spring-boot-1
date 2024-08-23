@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,9 +31,12 @@ public class MyController {
 	
 	@PostMapping("/addStudent")
 	public List<Student> addStudent(@RequestBody Student student){
-		return null;
+		return studentService.addStudent(student);
 	}
-	
+	@PutMapping("/updateStudent")
+	public String updateStudent(@RequestBody Student student) {
+		return studentService.updateStudent(student);
+	}
 	@GetMapping("/hi")
 	public String name() {
 		return "Asiri";
