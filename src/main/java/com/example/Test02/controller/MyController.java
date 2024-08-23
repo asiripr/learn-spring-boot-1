@@ -30,7 +30,7 @@ public class MyController {
 	
 	@PostMapping("/addStudent")
 	public List<Student> addStudent(@RequestBody Student student){
-		return null;
+		return studentService.addStudent(student);
 	}
 	
 	@GetMapping("/hi")
