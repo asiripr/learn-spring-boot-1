@@ -63,4 +63,19 @@ public class StudentService {
 			return "An error occured!";
 		}
 	}
+	
+	public String deleteStudent(String id) {
+//		for(Student s: studentList) {
+//			if(s.getId().equals(id)) {
+//				studentList.remove(s);
+//			}
+//		}
+		boolean result = studentList.removeIf(s->s.getId().equals(id));
+		if(result) {
+			return "successfully deleted";
+		}
+		else {
+			return "something went wrong";
+		}
+	}
 }
