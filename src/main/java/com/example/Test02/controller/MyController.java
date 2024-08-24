@@ -20,13 +20,13 @@ public class MyController {
 	@Autowired
 	StudentService studentService;
 	
-	@GetMapping("/getAllStudentList")
+	@GetMapping("/getAllStudents")
 	// --- without database
 //	public List<Student> getAllStudentList(){
 //		return studentService.getAllStudents();
 //	}
 	// --- with database
-	public Iterable<Student> getAllStudentList(){
+	public Iterable<Student> getAllStudents(){
 		return studentService.getAllStudents();
 	}
 	
