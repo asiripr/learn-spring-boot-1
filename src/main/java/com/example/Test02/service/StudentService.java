@@ -6,59 +6,87 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.Test02.model.Student;
+import com.example.Test02.repository.StudentRepository;
 
 @Service
 public class StudentService {
-	List<Student> studentList = new ArrayList<Student>();
+	
+	@Autowired // used for dependency injection
+	StudentRepository studentRepository;
+	
+	//List<Student> studentList = new ArrayList<Student>(); we use this when we manually insert data through the java code
+	List<Student> studentList = null;
 	
 	public StudentService() {
-		
+		studentList = new ArrayList<Student>();
 	}
-	
-	public List<Student> getAllStudents(){
-		return studentList;
+	// --- with no database
+//	public List<Student> getAllStudents(){
+//		return studentList;
+//	}
+	// --- with database
+	public Iterable<Student> getAllStudents(){
+		return studentRepository.findAll();
 	}
-	
+	// --- no database
+//	public Student getSpecificStudent(String id) {
+//		return studentList.stream().filter(s->s.getId().equals(id)).findFirst().get();
+//	}
+	// --- with database
 	public Student getSpecificStudent(String id) {
-		return studentList.stream().filter(s->s.getId().equals(id)).findFirst().get();
+		return studentRepository.findById(id).get();
 	}
 	
-	public List<Student> addStudent(Student student){
+	public Student addStudent(Student student){
+	//public List<Student> addStudent(Student student){
 		//studentList.add(student);
 		//return studentList;
-		return Stream.of(student).collect(Collectors.toCollection(()->studentList)); //same operation using lamda expression
+		// return Stream.of(student).collect(Collectors.toCollection(()->studentList)); //same operation using lamda expression // we use this to add student to the array list
+		return studentRepository.save(student);
 	}
-	
-	public String updateStudent(Student student) {
+	public Student updateStudent(Student student) {
+	//public String updateStudent(Student student) {
 //		for(Student s: studentList) {
 //			if(s.getId().equals(student.getId())) {
 //				s.setEmail(student.getEmail());
 //				s.setName(student.getName());
 //			}
 //		}
-		try {
-			studentList.stream().filter(s->s.getId().equals(student.getId())).forEach(s->{s.setName(student.getName());s.setEmail(student.getEmail());});
-			return "Successfully Updated!";
-		} catch (Exception e) {
-			return "An error occured!";
-		}
+		
+		// --- this part uses when we manipulate system without database ---
+//		try {
+//			studentList.stream().filter(s->s.getId().equals(student.getId())).forEach(s->{s.setName(student.getName());s.setEmail(student.getEmail());});
+//			return "Successfully Updated!";
+//		} catch (Exception e) {
+//			return "An error occurred!";
+//		}
+		
+		// --- with database
+		return studentRepository.save(student);
 	}
 	
-	public String deleteStudent(String id) {
+	public void deleteStudent(String id) {
+	//public String deleteStudent(String id) {
 //		for(Student s: studentList) {
 //			if(s.getId().equals(id)) {
 //				studentList.remove(s);
 //			}
 //		}
-		boolean result = studentList.removeIf(s->s.getId().equals(id));
-		if(result) {
-			return "successfully deleted";
-		}
-		else {
-			return "something went wrong";
-		}
+		
+		// --- when no database
+//		boolean result = studentList.removeIf(s->s.getId().equals(id));
+//		if(result) {
+//			return "successfully deleted";
+//		}
+//		else {
+//			return "something went wrong";
+//		}
+		
+		// --- with database
+		studentRepository.deleteById(id);
 	}
 }
