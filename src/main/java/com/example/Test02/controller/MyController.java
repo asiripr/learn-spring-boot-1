@@ -59,4 +59,12 @@ public class MyController {
 	public String beep() {
 		return "Toyota";
 	}
+	@GetMapping("/getStudentByName/{name}")
+	public Student getStudentByName(@PathVariable String name) {
+		return studentService.getStudentByName(name);
+	}
+	@PutMapping("/updateStudentEmail")
+	public void updateStudentEmail(@RequestBody Student student) {
+		studentService.updateStudentEmail(student.getEmail(), student.getId());
+	}
 }
