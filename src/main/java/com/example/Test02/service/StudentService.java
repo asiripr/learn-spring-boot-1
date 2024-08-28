@@ -8,9 +8,12 @@ import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 
 import com.example.Test02.model.Student;
 import com.example.Test02.repository.StudentRepository;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class StudentService {
@@ -92,5 +95,10 @@ public class StudentService {
 	
 	public Student getStudentByName(String name) {
 		return studentRepository.getStudentByName(name);
+	}
+	
+	@Transactional//(dontRollbackOn = Propagation.REQUIRED)
+	public void updateStudentEmail(String email, String id) {
+		studentRepository.updateStudentEmail(email, id);
 	}
 }

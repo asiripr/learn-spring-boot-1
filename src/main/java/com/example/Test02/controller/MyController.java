@@ -63,4 +63,8 @@ public class MyController {
 	public Student getStudentByName(@PathVariable String name) {
 		return studentService.getStudentByName(name);
 	}
+	@PutMapping("/updateStudentEmail")
+	public void updateStudentEmail(@RequestBody Student student) {
+		studentService.updateStudentEmail(student.getEmail(), student.getId());
+	}
 }
