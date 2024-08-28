@@ -59,4 +59,8 @@ public class MyController {
 	public String beep() {
 		return "Toyota";
 	}
+	@GetMapping("/getStudentByName/{name}")
+	public Student getStudentByName(@PathVariable String name) {
+		return studentService.getStudentByName(name);
+	}
 }

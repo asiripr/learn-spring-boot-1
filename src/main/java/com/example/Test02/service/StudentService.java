@@ -89,4 +89,8 @@ public class StudentService {
 		// --- with database
 		studentRepository.deleteById(id);
 	}
+	
+	public Student getStudentByName(String name) {
+		return studentRepository.getStudentByName(name);
+	}
 }
